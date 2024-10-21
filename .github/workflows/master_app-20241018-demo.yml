@@ -58,7 +58,7 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E104DE6EE35645B0B831E84C8B41D204 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6CAB8DE766BD4D4CB3F43A876E73A71A }}
 
-      # Staging slot Ç…ÉfÉvÉçÉC
+      # Staging slot
       #- name: Deploy to Azure Web App
       #  id: deploy-to-webapp
       #  uses: azure/webapps-deploy@v3
