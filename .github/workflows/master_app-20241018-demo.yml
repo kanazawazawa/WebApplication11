@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
 
 jobs:
@@ -55,10 +58,19 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E104DE6EE35645B0B831E84C8B41D204 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6CAB8DE766BD4D4CB3F43A876E73A71A }}
 
+      # Staging slot Ç…ÉfÉvÉçÉC
+      #- name: Deploy to Azure Web App
+      #  id: deploy-to-webapp
+      #  uses: azure/webapps-deploy@v3
+      #  with:
+      #    app-name: 'app-20241018-demo'
+      #    slot-name: 'staging'
+      #    package: .
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'app-20241018-demo'
-          slot-name: 'staging'
+          app-name: ${{ github.event_name == 'pull_request' && 'app-20241018-demo-develop' || 'app-20241018-demo' }}
+          slot-name: 'Production'
           package: .
