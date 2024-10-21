@@ -60,5 +60,5 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'app-20241018-demo'
-          slot-name: 'Production'
+          slot-name: 'staging'
           package: .
