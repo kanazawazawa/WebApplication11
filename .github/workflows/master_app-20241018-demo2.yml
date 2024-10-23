@@ -55,21 +55,20 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E104DE6EE35645B0B831E84C8B41D204 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6CAB8DE766BD4D4CB3F43A876E73A71A }}
 
-      - name: Log environment variables
+      - name: Log variables
         run: |
-          echo "App Name: app-$(date +'%Y%m%d%H%M%S')"
           echo "Resource Group: ${{ vars.RESOURCE_GROUP }}"
           echo "App Service Plan: ${{ vars.APP_SERVICE_PLAN }}"
 
       - name: Create Azure Web App (only for pull requests)
         if: github.event_name == 'pull_request'
         run: |
-          az webapp create --resource-group ${{ vars.RESOURCE_GROUP }} --plan ${{ vars.APP_SERVICE_PLAN }} --name app-$(date +'%Y%m%d%H%M%S')
+          az webapp create --resource-group ${{ vars.RESOURCE_GROUP }} --plan ${{ vars.APP_SERVICE_PLAN }} --name apptest-${{ github.sha }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ github.event_name == 'pull_request' && app-$(date +'%Y%m%d%H%M%S') || 'app-20241018-demo' }}
+          app-name: ${{ github.event_name == 'pull_request' && 'apptest-' + github.sha || 'app-20241018-demo' }}
           slot-name: 'Production'
           package: .
