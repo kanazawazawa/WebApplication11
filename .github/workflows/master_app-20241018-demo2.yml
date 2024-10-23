@@ -63,7 +63,7 @@ jobs:
         run: |
           echo "Resource Group: ${{ vars.RESOURCE_GROUP }}"
           echo "App Service Plan: ${{ vars.APP_SERVICE_PLAN }}"
-          echo "App: ${{ env.APP_NAME }}
+          echo "App: ${{ env.APP_NAME }}"
 
 
       - name: Create Azure Web App (only for pull requests)
