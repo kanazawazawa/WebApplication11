@@ -55,15 +55,21 @@ jobs:
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_E104DE6EE35645B0B831E84C8B41D204 }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_6CAB8DE766BD4D4CB3F43A876E73A71A }}
 
+      - name: Set app name for pull request
+        if: github.event_name == 'pull_request'
+        run: echo "APP_NAME=apptest-${{ github.sha }}" >> $GITHUB_ENV
+
       - name: Log variables
         run: |
           echo "Resource Group: ${{ vars.RESOURCE_GROUP }}"
           echo "App Service Plan: ${{ vars.APP_SERVICE_PLAN }}"
+          echo "App: ${{ env.APP_NAME }}
+
 
       - name: Create Azure Web App (only for pull requests)
         if: github.event_name == 'pull_request'
         run: |
-          az webapp create --resource-group ${{ vars.RESOURCE_GROUP }} --plan ${{ vars.APP_SERVICE_PLAN }} --name apptest-${{ github.sha }}
+          az webapp create --resource-group ${{ vars.RESOURCE_GROUP }} --plan ${{ vars.APP_SERVICE_PLAN }} --name ${{ env.APP_NAME }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
