@@ -58,8 +58,8 @@ jobs:
       - name: Set environment variables
         run: |
           echo "APP_NAME=app-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
-          echo "RESOURCE_GROUP=<your-resource-group>" >> $GITHUB_ENV
-          echo "APP_SERVICE_PLAN=<your-app-service-plan>" >> $GITHUB_ENV
+          echo "RESOURCE_GROUP=${{ vars.RESOURCE_GROUP }}" >> $GITHUB_ENV
+          echo "APP_SERVICE_PLAN=${{ vars.APP_SERVICE_PLAN }}" >> $GITHUB_ENV
 
       - name: Create Azure Web App (only for pull requests)
         if: github.event_name == 'pull_request'
