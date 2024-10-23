@@ -61,6 +61,12 @@ jobs:
           echo "RESOURCE_GROUP=${{ vars.RESOURCE_GROUP }}" >> $GITHUB_ENV
           echo "APP_SERVICE_PLAN=${{ vars.APP_SERVICE_PLAN }}" >> $GITHUB_ENV
 
+      - name: Log environment variables
+        run: |
+          echo "App Name: ${{ env.APP_NAME }}"
+          echo "Resource Group: ${{ env.RESOURCE_GROUP }}"
+          echo "App Service Plan: ${{ env.APP_SERVICE_PLAN }}"
+
       - name: Create Azure Web App (only for pull requests)
         if: github.event_name == 'pull_request'
         run: |
