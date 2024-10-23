@@ -60,6 +60,12 @@ jobs:
           echo "Resource Group: ${{ vars.RESOURCE_GROUP }}"
           echo "App Service Plan: ${{ vars.APP_SERVICE_PLAN }}"
           echo "App Name: ${{ vars.APP_NAME }}"
+          
+      - name: Delete Azure Web App ${{ vars.APP_NAME }}
+        #if: github.ref == 'refs/heads/master'
+        run: |
+          echo "Deleting Azure Web App: ${{ vars.APP_NAME }}"
+          az webapp delete --resource-group ${{ vars.RESOURCE_GROUP }} --name ${{ vars.APP_NAME }}
 
       - name: Create Azure Web App (only for pull requests)
         if: github.event_name == 'pull_request'
