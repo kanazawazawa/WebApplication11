@@ -70,6 +70,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: ${{ github.event_name == 'pull_request' && env.APP_NAME || 'app-20241018-demo' }}
+          app-name: ${{ github.event_name == 'pull_request' && app-$(date +'%Y%m%d%H%M%S') || 'app-20241018-demo' }}
           slot-name: 'Production'
           package: .
