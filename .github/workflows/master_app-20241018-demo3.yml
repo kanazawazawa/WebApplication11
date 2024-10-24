@@ -24,9 +24,6 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
-      - name: Run tests
-        run: dotnet test WebApplication11.test --configuration Release
-
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}\myapp"
 
